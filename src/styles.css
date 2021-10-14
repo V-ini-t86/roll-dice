@@ -1,0 +1,50 @@
+body {
+  font-family: sans-serif;
+  margin: 50px 100px;
+}
+.selected {
+  display: flex;
+  justify-content: space-between;
+}
+.heading {
+  text-align: center;
+}
+.image {
+  display: flex;
+  justify-content: center;
+}
+.image > img {
+  width: 100px;
+  height: 100px;
+}
+.buttons {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+.btn {
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  background: #9c060c;
+  color: white;
+  font-size: 1.5rem;
+  /* width: 50px; */
+}
+.btn:hover {
+  border: 1px solid #9c060c;
+  background: white;
+  color: #9c060c;
+  font-size: 2rem;
+}
+.game-info {
+  text-align: center;
+}
+
+.show-message {
+  text-align: center;
+  background: #9c060c;
+  padding: 10px;
+  color: white;
+}

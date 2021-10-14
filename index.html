@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/styles.css" />
+    <script src="src/index.js" defer></script>
+  </head>
+
+  <body>
+    <div id="head" class="heading">
+      <h1>Roll The Dice</h1>
+    </div>
+
+    <div class="selected">
+      <h4>
+        Selected variable:
+        <span class="selected-var">0</span>
+      </h4>
+      <h4>Score: <span id="score">0</span></h4>
+    </div>
+    <h3 class="w-and-r"></h3>
+    <div class="image">
+      <img id="dImg" src="/src/images/dice1.png" alt="dice" />
+    </div>
+
+    <div class="buttons">
+      <button class="btn">1</button>
+      <button class="btn">2</button>
+      <button class="btn">3</button>
+      <button class="btn">4</button>
+      <button class="btn">5</button>
+      <button class="btn">6</button>
+    </div>
+
+    <div class="game-info">
+      <h3 class="dice-stop"></h3>
+      <h3 class="loading-game">
+        Loading! Game will start in a <span class="sixtySec">60</span> seconds
+      </h3>
+    </div>
+    <div id="app"></div>
+  </body>
+</html>
