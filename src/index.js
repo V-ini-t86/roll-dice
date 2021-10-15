@@ -28,11 +28,15 @@ let showMessage = document.querySelector(".w-and-r");
 
 //  Loading the Game
 let timer60 = 60;
+const sixty = setInterval(() => {
+  timer(timer60);
+}, 100);
+
 function timer(time) {
   if (time === 0) {
     stopTheSetInterval(sixty);
     loadingHeading.innerHTML = null;
-    gameStart();
+    gameStart(); // Start The Game
     return;
   }
   time--;
@@ -40,49 +44,18 @@ function timer(time) {
   timer60 = time;
 }
 
-const sixty = setInterval(() => {
-  timer(timer60);
-}, 100);
-
 function gameStart() {
-  const stopDice = diceRoll();
+  const stopDice = diceRoll(); // return the setInterval() of the roll dice
   diceWillStopAt5sec.innerHTML =
     "Dice will stop in <span class='timer-at-five'>5</span> seconds";
   let timerAtFive = document.querySelector(".timer-at-five");
   let t = 5;
-  let fiveSec = setInterval(() => {
+  const fiveSec = setInterval(() => {
     if (t == 0) {
       stopTheSetInterval(fiveSec);
       stopTheSetInterval(stopDice);
-      let selectedVariable = document.querySelector(".selected-var").innerHTML;
-      let id = image.id;
-      showMessage.classList = "show-message";
-      console.log(showMessage);
-      if (selectedVariable == 0) {
-        showMessage.innerText = "You didn't press any button,Try Again";
-      } else if (selectedVariable == id) {
-        // Add To Score
-        showMessage.innerText = "Your Guess was right";
-        let score = document.getElementById("score");
-        let sum = addToScore(score, id);
-        score.innerText = sum;
-      } else if (selectedVariable != id) {
-        showMessage.innerText = "Your Guess was wrong";
-      }
-
-      let setTime = 10;
-      diceWillStopAt5sec.innerHTML =
-        "Dice will change in <span class='timer-at-five'>5</span> seconds";
-      let time5 = document.querySelector(".timer-at-five");
-      let startTheGameAgain = setInterval(() => {
-        if (setTime === 0) {
-          stopTheSetInterval(startTheGameAgain);
-          resetTheGame(showMessage);
-          gameStart();
-        }
-        setTime--;
-        time5.innerHTML = setTime;
-      }, 1000);
+      whenDiceStops();
+      restartTheGame(diceWillStopAt5sec);
     } else {
       t--;
       timerAtFive.innerHTML = t;
@@ -94,6 +67,40 @@ function gameStart() {
 function roll(number) {
   image.src = dices[number].diceImg;
   image.id = number + 1;
+}
+
+function whenDiceStops() {
+  let selectedVariable = document.querySelector(".selected-var").innerHTML;
+  let id = image.id;
+  showMessage.classList = "show-message";
+  console.log(showMessage);
+  if (selectedVariable == 0) {
+    showMessage.innerText = "You didn't press any button,Try Again";
+  } else if (selectedVariable == id) {
+    // Add To Score
+    showMessage.innerText = "Your Guess was right";
+    let score = document.getElementById("score");
+    let sum = addToScore(score, id);
+    score.innerText = sum;
+  } else if (selectedVariable != id) {
+    showMessage.innerText = "Your Guess was wrong";
+  }
+}
+
+function restartTheGame(diceWillStopAt5sec) {
+  let setTime = 10;
+  diceWillStopAt5sec.innerHTML =
+    "Dice will change in <span class='timer-at-five'>5</span> seconds";
+  let time5 = document.querySelector(".timer-at-five");
+  let startTheGameAgain = setInterval(() => {
+    if (setTime === 0) {
+      stopTheSetInterval(startTheGameAgain);
+      resetTheElements(showMessage);
+      gameStart();
+    }
+    setTime--;
+    time5.innerHTML = setTime;
+  }, 1000);
 }
 
 function diceRoll() {
@@ -112,7 +119,7 @@ function stopTheSetInterval(intervalName) {
   clearInterval(intervalName);
 }
 
-function resetTheGame(element) {
+function resetTheElements(element) {
   element.innerHTML = null;
   element.classList.remove("show-message");
   let variable = document.querySelector(".selected-var");
