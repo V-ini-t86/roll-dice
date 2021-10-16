@@ -45,17 +45,14 @@ function timer(time) {
 }
 
 function gameStart() {
-  const stopDice = diceRoll(); // return the setInterval() of the roll dice
   diceWillStopAt5sec.innerHTML =
-    "Dice will stop in <span class='timer-at-five'>5</span> seconds";
+    "Dice will change in <span class='timer-at-five'>5</span> seconds";
   let timerAtFive = document.querySelector(".timer-at-five");
   let t = 5;
   const fiveSec = setInterval(() => {
     if (t == 0) {
       stopTheSetInterval(fiveSec);
-      stopTheSetInterval(stopDice);
-      whenDiceStops();
-      restartTheGame(diceWillStopAt5sec);
+      startTheDice(diceWillStopAt5sec);
     } else {
       t--;
       timerAtFive.innerHTML = t;
@@ -64,6 +61,20 @@ function gameStart() {
 }
 
 // Change the dice function
+function startTheDice() {
+  const diceStop = diceRoll();
+  let t = 5;
+  const stop = setInterval(() => {
+    if (t === 0) {
+      stopTheSetInterval(diceStop);
+      stopTheSetInterval(stop);
+      whenDiceStops();
+      restartTheGame(diceWillStopAt5sec);
+    }
+    t--;
+  }, 1000);
+}
+
 function roll(number) {
   image.src = dices[number].diceImg;
   image.id = number + 1;
@@ -90,7 +101,7 @@ function whenDiceStops() {
 function restartTheGame(diceWillStopAt5sec) {
   let setTime = 10;
   diceWillStopAt5sec.innerHTML =
-    "Dice will change in <span class='timer-at-five'>5</span> seconds";
+    "The Game Starts again in <span class='timer-at-five'>10</span> seconds";
   let time5 = document.querySelector(".timer-at-five");
   let startTheGameAgain = setInterval(() => {
     if (setTime === 0) {
